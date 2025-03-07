@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { VideoUploader } from "@/components/video-uploader";
 import { VideoList } from "@/components/video-list";
-//import { DashboardHeader } from "@/components/dashboard-header";
-import { useToast } from "@/hooks/use-toast";
+import { DashboardHeader } from "@/components/dashboard-header";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function DashboardPage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -27,7 +27,7 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* <DashboardHeader /> */}
+      <DashboardHeader />
       <main className="container mx-auto px-4 py-8">
         <VideoUploader />
         <VideoList />
