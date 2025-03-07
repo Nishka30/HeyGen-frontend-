@@ -16,7 +16,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
+import { userRequest } from "@/lib/axiosInstance"; // Adjust the import path as necessary
 
 const formSchema = z.object({
   name: z.string().min(2),
@@ -41,17 +42,9 @@ export default function RegisterPage() {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setIsLoading(true);
-      const response = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
+      const response = await userRequest.post("/api/auth/register", values);
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Registration failed");
-      }
+      const data = response.data;
 
       localStorage.setItem("token", data.token);
       router.push("/dashboard");
@@ -59,7 +52,7 @@ export default function RegisterPage() {
       toast({
         variant: "destructive",
         title: "Error",
-        description: error.message,
+        description: error.response?.data?.message || "Registration failed",
       });
     } finally {
       setIsLoading(false);

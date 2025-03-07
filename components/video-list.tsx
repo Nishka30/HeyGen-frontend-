@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { userRequest } from "@/lib/axiosInstance"; // Adjust the import path as necessary
 
 interface VideoItem {
   video_translate_id: string;
@@ -26,12 +27,12 @@ export function VideoList() {
     const fetchVideos = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch("/api/heygen/videos", {
+        const response = await userRequest.get("/api/heygen/videos", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        const data = await response.json();
+        const data = response.data;
         setVideos(data);
       } catch (error) {
         console.error("Failed to fetch videos:", error);

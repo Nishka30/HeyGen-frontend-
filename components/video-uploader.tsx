@@ -22,7 +22,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
+import { userRequest } from "@/lib/axiosInstance"; // Adjust the import path as necessary
 
 const formSchema = z.object({
   video_url: z.string().url(),
@@ -47,16 +48,13 @@ export function VideoUploader() {
     try {
       setIsLoading(true);
       const token = localStorage.getItem("token");
-      const response = await fetch("/api/heygen/videos", {
-        method: "POST",
+      const response = await userRequest.post("/api/heygen/videos", values, {
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(values),
       });
 
-      const data = await response.json();
+      const data = response.data;
 
       if (!response.ok) {
         throw new Error(data.message || "Failed to upload video");
@@ -72,7 +70,7 @@ export function VideoUploader() {
       toast({
         variant: "destructive",
         title: "Error",
-        description: error.message,
+        description: error.response?.data?.message || error.message,
       });
     } finally {
       setIsLoading(false);
