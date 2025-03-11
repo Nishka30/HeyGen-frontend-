@@ -15,7 +15,7 @@ export function LandingHero() {
         </h1>
         <p className="mb-8 text-xl text-muted-foreground">
           Instantly translate your videos into multiple languages while preserving
-          the original voice and style. Powered by HeyGen AI technology.
+          the original voice and style.
         </p>
         <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
           <Button asChild size="lg">
