@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { VideoUploader } from "@/components/video-uploader";
-import { VideoList } from "@/components/video-list";
 import { useToast } from "@/hooks/use-toast";
 
 export default function TranslatePage() {
@@ -33,9 +32,8 @@ export default function TranslatePage() {
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-3xl font-bold text-gray-200">Video Translation</h2>
       </div>
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="max-w-3xl mx-auto">
         <VideoUploader />
-        <VideoList type="translation" />
       </div>
     </div>
   );

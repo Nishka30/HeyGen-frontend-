@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AvatarVideoCreator } from "@/components/avatar-video-creator";
-import { VideoList } from "@/components/video-list";
 import { useToast } from "@/hooks/use-toast";
 
 export default function AvatarPage() {
@@ -33,9 +32,8 @@ export default function AvatarPage() {
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-3xl font-bold text-gray-200">Avatar Videos</h2>
       </div>
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="max-w-3xl mx-auto">
         <AvatarVideoCreator />
-        <VideoList type="avatar" />
       </div>
     </div>
   );
